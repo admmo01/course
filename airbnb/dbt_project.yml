@@ -33,4 +33,6 @@ models:
   airbnb:
     +materialized: view
     dim:
-     +materialized: table
+      +materialized: table
+    src:
+      +materialized: ephemeral
