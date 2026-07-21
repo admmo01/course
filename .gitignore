@@ -1,4 +1,21 @@
+# Python / uv
 .venv/
 __pycache__/
 *.pyc
+*.pyo
+
+# dbt
+target/
+dbt_packages/
 logs/
+package-lock.yml
+
+# dbt - anciens noms (versions < 1.0)
+dbt_modules/
+
+# Credentials — ne jamais versionner
+profiles.yml
+
+# IDE / OS
+.DS_Store
+Thumbs.db
