@@ -1,0 +1,12 @@
+# Documentation & tests des modèles de la couche `mart`.
+# Les unit tests de cette couche sont dans unit_test.yml.
+# Exemple à compléter :
+#
+# models:
+#   - name: mart_fullmoon_reviews
+#     columns:
+#       - name: is_full_moon
+#         data_tests:
+#           - accepted_values:
+#               arguments:
+#                 values: ['full moon', 'not full moon']

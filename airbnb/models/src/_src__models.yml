@@ -1,0 +1,7 @@
+# Documentation des modèles de la couche `src` (staging, éphémère).
+# Les sources brutes sont déclarées dans _sources.yml.
+# Exemple à compléter :
+#
+# models:
+#   - name: src_listings
+#     description: "Renommage/sélection depuis la source airbnb.listings."

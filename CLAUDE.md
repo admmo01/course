@@ -4,7 +4,12 @@ Projet fil rouge du **Udemy « Complete dbt Bootcamp »** : un pipeline **dbt** 
 
 ## Environnement & commandes
 
-L'environnement Python est géré avec **uv**. dbt n'est **pas** installé en global : il vit dans le `.venv` du projet. **Toujours préfixer par `uv run`.**
+L'environnement Python est géré avec **uv**. dbt n'est **pas** installé en global : il vit dans le `.venv` du projet. Deux façons de lancer dbt :
+
+- **Préfixer par `uv run`** (recommandé, aucune activation nécessaire) : `uv run dbt build`.
+- **Activer le `.venv`** puis appeler `dbt` directement : `.\.venv\Scripts\activate.ps1` (le prompt affiche alors `(dbt-bootcamp)`), ensuite `dbt build`, `dbt run`, etc. sans le préfixe `uv run`.
+
+Les commandes ci-dessous utilisent `uv run` ; retire ce préfixe si ton `.venv` est activé.
 
 ```bash
 uv sync                      # après un clone : reconstruit .venv depuis uv.lock
@@ -28,7 +33,7 @@ Configuré par [airbnb/dbt_project.yml](airbnb/dbt_project.yml). Le DAG suit 4 c
 
 | Couche | Dossier | Matérialisation | Rôle |
 |--------|---------|-----------------|------|
-| Sources | `models/sources.yml` | — | Tables brutes `raw_listings` / `raw_hosts` / `raw_reviews` + test de *freshness* |
+| Sources | `models/src/_sources.yml` | — | Tables brutes `raw_listings` / `raw_hosts` / `raw_reviews` + test de *freshness* |
 | Staging (`src`) | `models/src/` | `ephemeral` | Renommage/sélection simple, pas d'objet créé en base |
 | Dimensions (`dim`) | `models/dim/` | `table` | Nettoyage (prix `$`→number, `minimum_nights` 0→1) + jointures |
 | Faits (`fct`) | `models/fct/` | `incremental` | `fct_reviews` : chargement incrémental sur `review_date`, `on_schema_change='fail'` |
@@ -40,7 +45,8 @@ Les défauts de matérialisation sont définis par dossier dans `dbt_project.yml
 
 ## Autres briques dbt illustrées
 
-- **Tests** — [airbnb/models/schema.yml](airbnb/models/schema.yml) : tests génériques natifs (`unique`, `not_null`, `relationships`, `accepted_values`) + custom.
+- **Organisation des YAML** — un `.yml` par couche, co-localisé dans son dossier : `models/src/_sources.yml` (sources) + `_src__models.yml`, `models/dim/_dim__models.yml`, `models/fct/_fct__models.yml`, `models/mart/_mart__models.yml`. dbt fusionne tous les `.yml` sous `models/` ; le découpage est purement organisationnel.
+- **Tests** — [airbnb/models/dim/_dim__models.yml](airbnb/models/dim/_dim__models.yml) : tests génériques natifs (`unique`, `not_null`, `relationships`, `accepted_values`) + custom.
   - Tests génériques custom dans `tests/generic/` (`positive_values`, `minimum_row_count`).
   - Tests singuliers (SQL) dans `tests/` (ex. `consistent_created_at.sql`).
   - `+store_failures: true` : les lignes en échec sont persistées dans le schéma `test_failures`.

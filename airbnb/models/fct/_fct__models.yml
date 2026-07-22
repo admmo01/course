@@ -1,0 +1,10 @@
+# Documentation & tests des modèles de la couche `fct` (faits).
+# Exemple à compléter :
+#
+# models:
+#   - name: fct_reviews
+#     columns:
+#       - name: review_id
+#         data_tests:
+#           - unique
+#           - not_null
