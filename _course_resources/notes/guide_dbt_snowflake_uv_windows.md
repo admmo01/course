@@ -163,9 +163,14 @@ uv add dbt-core==1.11.2 dbt-snowflake==1.11.1
 
 Si le projet a déjà un `requirements.txt`, l'importer directement :
 
+Si on veut migrer vers UV : 
+
 ```powershell
 uv add -r requirements.txt 
 ```
+
+Si on veut garder le fichier requirement.txt et continuer à travailler avec UV : 
+
 uv pip install -r requirements.txt (installation pure, sans créer de fichiers), pour ne pas introduire un pyproject.toml parallèle au fichier de l'équipe.
 
 La règle mnémotechnique : uv add modifie le projet, uv pip install remplit juste le venv. Vous choisissez selon que vous avez ou non autorité pour changer le format du repo.
